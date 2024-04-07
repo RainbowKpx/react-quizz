@@ -1,0 +1,49 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "When was the movie &#039;Con Air&#039; released?",
+      "correct_answer": "1997",
+      "incorrect_answers": ["1985", "1999", "1990"]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "Which animated movie was first to feature a celebrity as a voice actor?",
+      "correct_answer": "Aladdin",
+      "incorrect_answers": [
+        "Toy Story",
+        "James and the Giant Peach",
+        "The Hunchback of Notre Dame"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "What was Dorothy&#039;s surname in &#039;The Wizard Of Oz&#039;?",
+      "correct_answer": "Gale",
+      "incorrect_answers": ["Perkins", "Day", "Parker"]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "What is the name of the island that &quot;Jurassic Park&quot; is built on?",
+      "correct_answer": "Isla Nublar",
+      "incorrect_answers": ["Isla Sorna", "Isla Muerta", "Isla Pena"]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Entertainment: Film",
+      "question": "The 2002 film &quot;28 Days Later&quot; is mainly set in which European country?",
+      "correct_answer": "United Kingdom",
+      "incorrect_answers": ["France", "Italy", "Germany"]
+    }
+  ]
+}
