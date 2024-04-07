@@ -21,6 +21,7 @@ function QuizForm({ questions, resetQuizForm }) {
     });
   };
 
+  // Méthode qui permet de retourner le résultat du Quiz
   function getResult(): number {
     let score = 0;
     questions.forEach((question: Question) => {
@@ -39,12 +40,13 @@ function QuizForm({ questions, resetQuizForm }) {
     <>
       {questions.length > 0 && !isSubmitted && (
         <>
-          {questions.map((question: Question) => (
-            <>
+          {questions.map((question: Question, index: number) => (
+            <div key={index}>
               <p>{question.question}</p>
               {question.shuffled_answers &&
-                question.shuffled_answers.map((answer) => (
+                question.shuffled_answers.map((answer: string, index: number) => (
                   <button
+                    key={index}
                     className={`btn ${
                       answers.includes(answer) ? 'btn-success' : 'btn-dark'
                     }`}
@@ -54,7 +56,7 @@ function QuizForm({ questions, resetQuizForm }) {
                     {answer}
                   </button>
                 ))}
-            </>
+            </div>
           ))}
           {displaySubmit && (
             <p>
@@ -73,12 +75,13 @@ function QuizForm({ questions, resetQuizForm }) {
       )}
       {isSubmitted && (
         <>
-          {questions.map((question: Question) => (
-            <>
+          {questions.map((question: Question, index: number) => (
+            <div key={index}>
               <p>{question.question}</p>
               {question.shuffled_answers &&
-                question.shuffled_answers.map((answer) => (
+                question.shuffled_answers.map((answer: string, index: number) => (
                   <button
+                    key={index}
                     className={`btn 
                     ${question.correct_answer === answer && 'btn-success'}
                     ${
@@ -96,7 +99,7 @@ function QuizForm({ questions, resetQuizForm }) {
                     {answer}
                   </button>
                 ))}
-            </>
+            </div>
           ))}
           <br />
           <br />

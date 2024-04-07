@@ -30,8 +30,8 @@ function QuizSelector({
         }}
         disabled={quizInitied}
       >
-        {categories.map((categorie) => (
-          <option value={categorie.id}>{categorie.name}</option>
+        {categories.map((categorie: Categorie, index: number) => (
+          <option key={index} value={categorie.id}>{categorie.name}</option>
         ))}
       </select>
       <select
@@ -40,10 +40,10 @@ function QuizSelector({
         onChange={(event) => {
           setSelectedDifficultyLevel(event.target.value);
         }}
-        //disabled={quizInitied}
+        disabled={quizInitied}
       >
-        {difficultyLevels.map((difficulty) => (
-          <option>{difficulty}</option>
+        {difficultyLevels.map((difficulty: string, index: number) => (
+          <option key={index}>{difficulty}</option>
         ))}
       </select>
       <button
