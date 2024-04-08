@@ -10,9 +10,9 @@ function QuizForm({ questions, resetQuizForm }) {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   // Méthode qui gère le click sur une réponse
-  const handleClickAnswer = (e, indexQuestion: number) => {
+  const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>, indexQuestion: number) => {
     let newAnswers = [...answers];
-    newAnswers[indexQuestion] = e.target.value;
+    newAnswers[indexQuestion] = (e.target as HTMLButtonElement).value;
     setAnswers(newAnswers);
   };
 
