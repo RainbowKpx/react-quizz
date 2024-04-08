@@ -34,7 +34,6 @@ const QuizModule: FunctionComponent = () => {
         });
         setQuestionList(data.results);
         setQuizInitied(true);
-        //navigate("/quiz");
       })
       .catch((e) => console.log(e));
   };
