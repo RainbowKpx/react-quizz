@@ -10,15 +10,10 @@ function QuizForm({ questions, resetQuizForm }) {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   // Méthode qui gère le click sur une réponse
-  const handleClickAnswer = (e) => {
-    const answer: string = e.target.value;
-    questions.map((question: Question, index: number) => {
-      if (question.shuffled_answers.includes(answer)) {
-        let newAnswers = [...answers];
-        newAnswers[index] = answer;
-        setAnswers(newAnswers);
-      }
-    });
+  const handleClickAnswer = (e, indexQuestion: number) => {
+    let newAnswers = [...answers];
+    newAnswers[indexQuestion] = e.target.value;
+    setAnswers(newAnswers);
   };
 
   // Méthode qui permet de retourner le résultat du Quiz
@@ -40,18 +35,20 @@ function QuizForm({ questions, resetQuizForm }) {
     <>
       {questions.length > 0 && !isSubmitted && (
         <>
-          {questions.map((question: Question, index: number) => (
-            <div key={index}>
+          {questions.map((question: Question, indexQuestion: number) => (
+            <div key={indexQuestion}>
               <p>{question.question}</p>
               {question.shuffled_answers &&
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
                     key={index}
                     className={`btn ${
-                      answers.includes(answer) ? 'btn-success' : 'btn-dark'
+                      answers[indexQuestion] === answer ? 'btn-success' : 'btn-dark'
                     }`}
                     value={answer}
-                    onClick={handleClickAnswer}
+                    onClick={(e) => {
+                      handleClickAnswer(e, indexQuestion);
+                    }}
                   >
                     {answer}
                   </button>
@@ -75,8 +72,8 @@ function QuizForm({ questions, resetQuizForm }) {
       )}
       {isSubmitted && (
         <>
-          {questions.map((question: Question, index: number) => (
-            <div key={index}>
+          {questions.map((question: Question, indexQuestion: number) => (
+            <div key={indexQuestion}>
               <p>{question.question}</p>
               {question.shuffled_answers &&
                 question.shuffled_answers.map((answer: string, index: number) => (
@@ -86,12 +83,12 @@ function QuizForm({ questions, resetQuizForm }) {
                     ${question.correct_answer === answer && 'btn-success'}
                     ${
                       question.correct_answer !== answer &&
-                      answers.includes(answer) &&
+                      answers[indexQuestion] === answer &&
                       'btn-danger'
                     }                    
                     ${
                       question.correct_answer !== answer &&
-                      !answers.includes(answer) &&
+                      answers[indexQuestion] !== answer &&
                       'btn-dark'
                     }`}
                     disabled
