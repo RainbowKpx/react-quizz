@@ -1,7 +1,15 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Question } from '../../QuizModule/Models/models';
 
-function QuizForm({ questions, resetQuizForm }) {
+// Définition des props du composant QuizForm
+interface QuizFormProps {
+  questions: Array<Question>;
+  resetQuizForm: () => void;
+}
+
+const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
+  // Récupération des props
+  const {questions, resetQuizForm} = props;
   // Hook pour la liste de réponses
   const [answers, setAnswers] = useState<Array<string>>(['', '', '', '', '']);
   // Hook pour le boolean qui permet d'afficher le bouton de soumission

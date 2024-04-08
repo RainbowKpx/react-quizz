@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import QuizSelector from '../QuizModule/QuizSelector/QuizSelector';
 import QuizForm from '../QuizModule/QuizForm/QuizForm';
 import { Question } from '../QuizModule/Models/models';
 
-function QuizModule() {
+const QuizModule: FunctionComponent = () => {
   // Hook pour la categorie selectionnée
   const [selectedCategory, setSelectedCategory] = useState<number>(9);
   // Hook pour le niveau de difficulté selectionné

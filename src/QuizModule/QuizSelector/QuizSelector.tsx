@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Categorie } from '../../QuizModule/Models/models';
 
-function QuizSelector({
-  setSelectedCategory,
-  setSelectedDifficultyLevel,
-  handleCreateForm,
-  quizInitied,
-}) {
+// Définition des props du composant QuizSelector
+interface QuizSelectorProps {
+  setSelectedCategory: (idCategorie: number) => void;
+  setSelectedDifficultyLevel: (difficultyLevel: string) => void;
+  handleCreateForm: () => void;
+  quizInitied: boolean;
+}
+
+const QuizSelector: FunctionComponent<QuizSelectorProps> = ( props: QuizSelectorProps ) => {
+  // Récupération des props
+  const {setSelectedCategory, setSelectedDifficultyLevel, handleCreateForm, quizInitied} = props;
   // Hook pour la liste des catégories
   const [categories, setCategories] = useState<Array<Categorie>>([]);
   // Tableau des niveaux de difficulté
@@ -26,7 +31,7 @@ function QuizSelector({
         id="categorySelect"
         className="form-select"
         onChange={(event) => {
-          setSelectedCategory(event.target.value);
+          setSelectedCategory(parseInt(event.target.value));
         }}
         disabled={quizInitied}
       >
