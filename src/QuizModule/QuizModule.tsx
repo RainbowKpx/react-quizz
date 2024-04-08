@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import QuizSelector from '../QuizModule/QuizSelector/QuizSelector';
 import QuizForm from '../QuizModule/QuizForm/QuizForm';
 import { Question } from '../QuizModule/Models/models';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const QuizModule: FunctionComponent = () => {
   // Hook pour la categorie selectionnée
@@ -30,6 +31,7 @@ const QuizModule: FunctionComponent = () => {
         });
         setQuestionList(data.results);
         setQuizInitied(true);
+        //navigate("/quiz");
       })
       .catch((e) => console.log(e));
   };
@@ -49,18 +51,34 @@ const QuizModule: FunctionComponent = () => {
     return array;
   }
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element:       <QuizSelector
+                        setSelectedCategory={setSelectedCategory}
+                        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
+                        handleCreateForm={createQuizForm}
+                        quizInitied={quizInitied}
+                      />
+    },
+    {
+      path: "/quiz",
+      element: <>
+      <QuizSelector
+                        setSelectedCategory={setSelectedCategory}
+                        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
+                        handleCreateForm={createQuizForm}
+                        quizInitied={quizInitied}
+                      />
+      <QuizForm questions={questionsList} resetQuizForm={resetQuizForm} />
+      </>,
+    },
+  ]);
+
   return (
     <>
       <h1>Quizz Maker</h1>
-      <QuizSelector
-        setSelectedCategory={setSelectedCategory}
-        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
-        handleCreateForm={createQuizForm}
-        quizInitied={quizInitied}
-      />
-      {questionsList.length > 0 && (
-        <QuizForm questions={questionsList} resetQuizForm={resetQuizForm} />
-      )}
+      <RouterProvider router={router} />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Question } from '../../QuizModule/Models/models';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 // Définition des props du composant QuizForm
 interface QuizFormProps {
@@ -16,6 +17,8 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
   const [displaySubmit, setDisplaySubmit] = useState<boolean>(false);
   // Hook pour le boolean qui permet de savoir si le formulaire est soumis
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  // Hook du router dom utilisé pour la redirection
+  const navigate: NavigateFunction = useNavigate();
 
   // Méthode qui gère le click sur une réponse
   const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>, indexQuestion: number) => {
@@ -64,6 +67,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
           ))}
           {displaySubmit && (
             <p>
+              <br />
               <button
                 className="btn btn-primary"
                 disabled={isSubmitted}
@@ -104,8 +108,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                 ))}
             </div>
           ))}
-          <br />
-          <br />
+          <br/>
           <div
             className={`alert 
             ${getResult() < 3 && 'alert-danger'}
@@ -114,7 +117,10 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
           >
             You scored {getResult()} out of 5
           </div>
-          <button className="btn btn-primary" onClick={resetQuizForm}>
+          <button className="btn btn-primary" onClick={() => {
+            resetQuizForm();
+            navigate("/");
+          }}>
             Create a new quizz
           </button>
         </>

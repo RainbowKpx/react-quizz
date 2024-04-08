@@ -1,5 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Categorie } from '../../QuizModule/Models/models';
+import { NavigateFunction, redirect, useNavigate } from 'react-router-dom';
 
 // Définition des props du composant QuizSelector
 interface QuizSelectorProps {
@@ -16,6 +17,8 @@ const QuizSelector: FunctionComponent<QuizSelectorProps> = ( props: QuizSelector
   const [categories, setCategories] = useState<Array<Categorie>>([]);
   // Tableau des niveaux de difficulté
   const difficultyLevels: Array<string> = ['easy', 'medium', 'hard'];
+  // Hook du router dom utilisé pour la redirection
+  const navigate: NavigateFunction = useNavigate();
 
   useEffect(() => {
     // Récupération des catégories via l'api
@@ -54,7 +57,10 @@ const QuizSelector: FunctionComponent<QuizSelectorProps> = ( props: QuizSelector
       <button
         id="createBtn"
         className="btn btn-primary"
-        onClick={handleCreateForm}
+        onClick={() => {
+          handleCreateForm();
+          navigate('/quiz');
+        }}
         disabled={quizInitied}
       >
         Create
