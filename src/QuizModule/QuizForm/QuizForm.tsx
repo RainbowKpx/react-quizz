@@ -45,7 +45,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
         <>
           {questions.map((question: Question, indexQuestion: number) => (
             <div key={indexQuestion}>
-              <p>{question.question}</p>
+              <p dangerouslySetInnerHTML={{ __html: question.question}} />
               {question.shuffled_answers &&
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
@@ -57,9 +57,8 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                     onClick={(e) => {
                       handleClickAnswer(e, indexQuestion);
                     }}
-                  >
-                    {answer}
-                  </button>
+                    dangerouslySetInnerHTML={{ __html: answer}}
+                  />
                 ))}
             </div>
           ))}
@@ -82,7 +81,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
         <>
           {questions.map((question: Question, indexQuestion: number) => (
             <div key={indexQuestion}>
-              <p>{question.question}</p>
+              <p dangerouslySetInnerHTML={{ __html: question.question}} />
               {question.shuffled_answers &&
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
@@ -100,9 +99,8 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                       'btn-dark'
                     }`}
                     disabled
-                  >
-                    {answer}
-                  </button>
+                    dangerouslySetInnerHTML={{ __html: answer}}
+                  />
                 ))}
             </div>
           ))}
