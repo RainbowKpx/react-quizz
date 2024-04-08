@@ -50,7 +50,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
                     key={index}
-                    className={`btn ${
+                    className={`answer btn ${
                       answers[indexQuestion] === answer ? 'btn-success' : 'btn-dark'
                     }`}
                     value={answer}
@@ -86,7 +86,7 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
                     key={index}
-                    className={`btn 
+                    className={`answer btn 
                     ${question.correct_answer === answer && 'btn-success'}
                     ${
                       question.correct_answer !== answer &&
