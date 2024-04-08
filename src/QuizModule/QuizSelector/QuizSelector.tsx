@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Categorie } from '../../QuizModule/Models/models';
-import { NavigateFunction, redirect, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 // Définition des props du composant QuizSelector
 interface QuizSelectorProps {
@@ -10,9 +10,9 @@ interface QuizSelectorProps {
   quizInitied: boolean;
 }
 
-const QuizSelector: FunctionComponent<QuizSelectorProps> = ( props: QuizSelectorProps ) => {
+const QuizSelector: FunctionComponent<QuizSelectorProps> = (props: QuizSelectorProps) => {
   // Récupération des props
-  const {setSelectedCategory, setSelectedDifficultyLevel, handleCreateForm, quizInitied} = props;
+  const { setSelectedCategory, setSelectedDifficultyLevel, handleCreateForm, quizInitied } = props;
   // Hook pour la liste des catégories
   const [categories, setCategories] = useState<Array<Categorie>>([]);
   // Tableau des niveaux de difficulté

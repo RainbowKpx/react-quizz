@@ -5,14 +5,13 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 // Définition des props du composant QuizForm
 interface QuizFormProps {
   questions: Array<Question>;
-  resetQuizForm: () => void;
   answers: Array<string>;
   setAnswers: (answers: Array<string>) => void;
 }
 
 const QuizForm: FunctionComponent<QuizFormProps> = (props: QuizFormProps) => {
   // Récupération des props
-  const { questions, resetQuizForm, answers, setAnswers } = props;
+  const { questions, answers, setAnswers } = props;
   // Hook pour le boolean qui permet d'afficher le bouton de soumission
   const [displaySubmit, setDisplaySubmit] = useState<boolean>(false);
   // Hook pour le boolean qui permet de savoir si le formulaire est soumis

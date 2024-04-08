@@ -73,7 +73,7 @@ const QuizModule: FunctionComponent = () => {
           handleCreateForm={createQuizForm}
           quizInitied={quizInitied}
         />
-        <QuizForm questions={questionsList} resetQuizForm={resetQuizForm} answers={answers} setAnswers={setAnswers} />
+        <QuizForm questions={questionsList} answers={answers} setAnswers={setAnswers} />
       </>,
     },
     {
