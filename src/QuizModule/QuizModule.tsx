@@ -3,6 +3,7 @@ import QuizSelector from '../QuizModule/QuizSelector/QuizSelector';
 import QuizForm from '../QuizModule/QuizForm/QuizForm';
 import { Question } from '../QuizModule/Models/models';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import QuizResult from './QuizResult/QuizResult';
 
 const QuizModule: FunctionComponent = () => {
   // Hook pour la categorie selectionnée
@@ -12,6 +13,8 @@ const QuizModule: FunctionComponent = () => {
     useState<string>('easy');
   // Hook pour la liste de questions
   const [questionsList, setQuestionList] = useState<Array<Question>>([]);
+  // Hook pour la liste de réponses
+  const [answers, setAnswers] = useState<Array<string>>(['', '', '', '', '']);
   // Boolean pour savoir si le quiz est initialisé
   const [quizInitied, setQuizInitied] = useState<boolean>(false);
 
@@ -51,26 +54,39 @@ const QuizModule: FunctionComponent = () => {
     return array;
   }
 
+  // Création du router et des paths
   const router = createBrowserRouter([
     {
       path: "/",
-      element:       <QuizSelector
-                        setSelectedCategory={setSelectedCategory}
-                        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
-                        handleCreateForm={createQuizForm}
-                        quizInitied={quizInitied}
-                      />
+      element: <QuizSelector
+        setSelectedCategory={setSelectedCategory}
+        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
+        handleCreateForm={createQuizForm}
+        quizInitied={quizInitied}
+      />
     },
     {
       path: "/quiz",
       element: <>
-      <QuizSelector
-                        setSelectedCategory={setSelectedCategory}
-                        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
-                        handleCreateForm={createQuizForm}
-                        quizInitied={quizInitied}
-                      />
-      <QuizForm questions={questionsList} resetQuizForm={resetQuizForm} />
+        <QuizSelector
+          setSelectedCategory={setSelectedCategory}
+          setSelectedDifficultyLevel={setSelectedDifficultyLevel}
+          handleCreateForm={createQuizForm}
+          quizInitied={quizInitied}
+        />
+        <QuizForm questions={questionsList} resetQuizForm={resetQuizForm} answers={answers} setAnswers={setAnswers} />
+      </>,
+    },
+    {
+      path: "/result",
+      element: <>
+        <QuizSelector
+          setSelectedCategory={setSelectedCategory}
+          setSelectedDifficultyLevel={setSelectedDifficultyLevel}
+          handleCreateForm={createQuizForm}
+          quizInitied={quizInitied}
+        />
+        <QuizResult questions={questionsList} answers={answers} resetQuizForm={resetQuizForm} />
       </>,
     },
   ]);

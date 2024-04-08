@@ -6,13 +6,13 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 interface QuizFormProps {
   questions: Array<Question>;
   resetQuizForm: () => void;
+  answers: Array<string>;
+  setAnswers: (answers: Array<string>) => void;
 }
 
-const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
+const QuizForm: FunctionComponent<QuizFormProps> = (props: QuizFormProps) => {
   // Récupération des props
-  const {questions, resetQuizForm} = props;
-  // Hook pour la liste de réponses
-  const [answers, setAnswers] = useState<Array<string>>(['', '', '', '', '']);
+  const { questions, resetQuizForm, answers, setAnswers } = props;
   // Hook pour le boolean qui permet d'afficher le bouton de soumission
   const [displaySubmit, setDisplaySubmit] = useState<boolean>(false);
   // Hook pour le boolean qui permet de savoir si le formulaire est soumis
@@ -27,17 +27,6 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
     setAnswers(newAnswers);
   };
 
-  // Méthode qui permet de retourner le résultat du Quiz
-  function getResult(): number {
-    let score = 0;
-    questions.forEach((question: Question) => {
-      if (answers.includes(question.correct_answer)) {
-        score++;
-      }
-    });
-    return score;
-  }
-
   useEffect(() => {
     setDisplaySubmit(!answers.includes(''));
   }, [answers]);
@@ -48,19 +37,18 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
         <>
           {questions.map((question: Question, indexQuestion: number) => (
             <div key={indexQuestion}>
-              <p dangerouslySetInnerHTML={{ __html: question.question}} />
+              <p dangerouslySetInnerHTML={{ __html: question.question }} />
               {question.shuffled_answers &&
                 question.shuffled_answers.map((answer: string, index: number) => (
                   <button
                     key={index}
-                    className={`answer btn ${
-                      answers[indexQuestion] === answer ? 'btn-success' : 'btn-dark'
-                    }`}
+                    className={`answer btn ${answers[indexQuestion] === answer ? 'btn-success' : 'btn-dark'
+                      }`}
                     value={answer}
                     onClick={(e) => {
                       handleClickAnswer(e, indexQuestion);
                     }}
-                    dangerouslySetInnerHTML={{ __html: answer}}
+                    dangerouslySetInnerHTML={{ __html: answer }}
                   />
                 ))}
             </div>
@@ -73,56 +61,13 @@ const QuizForm: FunctionComponent<QuizFormProps> = ( props: QuizFormProps ) => {
                 disabled={isSubmitted}
                 onClick={() => {
                   setIsSubmitted(true);
+                  navigate("/result")
                 }}
               >
                 Submit
               </button>
             </p>
           )}
-        </>
-      )}
-      {isSubmitted && (
-        <>
-          {questions.map((question: Question, indexQuestion: number) => (
-            <div key={indexQuestion}>
-              <p dangerouslySetInnerHTML={{ __html: question.question}} />
-              {question.shuffled_answers &&
-                question.shuffled_answers.map((answer: string, index: number) => (
-                  <button
-                    key={index}
-                    className={`answer btn 
-                    ${question.correct_answer === answer && 'btn-success'}
-                    ${
-                      question.correct_answer !== answer &&
-                      answers[indexQuestion] === answer &&
-                      'btn-danger'
-                    }                    
-                    ${
-                      question.correct_answer !== answer &&
-                      answers[indexQuestion] !== answer &&
-                      'btn-dark'
-                    }`}
-                    disabled
-                    dangerouslySetInnerHTML={{ __html: answer}}
-                  />
-                ))}
-            </div>
-          ))}
-          <br/>
-          <div
-            className={`alert 
-            ${getResult() < 3 && 'alert-danger'}
-            ${getResult() >= 3 && getResult() < 4 && 'alert-warning'}
-            ${getResult() <= 4 && 'alert-success'}`}
-          >
-            You scored {getResult()} out of 5
-          </div>
-          <button className="btn btn-primary" onClick={() => {
-            resetQuizForm();
-            navigate("/");
-          }}>
-            Create a new quizz
-          </button>
         </>
       )}
     </>
