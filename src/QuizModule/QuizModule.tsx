@@ -57,15 +57,6 @@ const QuizModule: FunctionComponent = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <QuizSelector
-        setSelectedCategory={setSelectedCategory}
-        setSelectedDifficultyLevel={setSelectedDifficultyLevel}
-        handleCreateForm={createQuizForm}
-        quizInitied={quizInitied}
-      />
-    },
-    {
-      path: "/quiz",
       element: <>
         <QuizSelector
           setSelectedCategory={setSelectedCategory}
@@ -73,8 +64,8 @@ const QuizModule: FunctionComponent = () => {
           handleCreateForm={createQuizForm}
           quizInitied={quizInitied}
         />
-        <QuizForm questions={questionsList} answers={answers} setAnswers={setAnswers} />
-      </>,
+        {!!questionsList && questionsList.length > 0 && <QuizForm questions={questionsList} answers={answers} setAnswers={setAnswers} />}
+      </>
     },
     {
       path: "/result",

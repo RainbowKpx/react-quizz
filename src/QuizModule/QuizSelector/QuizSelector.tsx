@@ -57,10 +57,7 @@ const QuizSelector: FunctionComponent<QuizSelectorProps> = (props: QuizSelectorP
       <button
         id="createBtn"
         className="btn btn-primary"
-        onClick={() => {
-          handleCreateForm();
-          navigate('/quiz');
-        }}
+        onClick={handleCreateForm}
         disabled={quizInitied}
       >
         Create
